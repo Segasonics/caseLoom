@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="48" viewBox="0 0 64 48">
+  <rect width="64" height="48" fill="#012169"/>
+  <rect x="28" width="8" height="48" fill="#c8102e"/>
+  <rect y="20" width="64" height="8" fill="#c8102e"/>
+  <text x="32" y="30" font-family="Arial, sans-serif" font-size="16" fill="#fff" text-anchor="middle" font-weight="700">GB</text>
+</svg>

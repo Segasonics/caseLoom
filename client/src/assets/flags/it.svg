@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="48" viewBox="0 0 64 48">
+  <rect width="21.33" height="48" fill="#009246"/>
+  <rect x="21.33" width="21.33" height="48" fill="#fff"/>
+  <rect x="42.66" width="21.34" height="48" fill="#ce2b37"/>
+  <text x="32" y="30" font-family="Arial, sans-serif" font-size="16" fill="#111" text-anchor="middle" font-weight="700">IT</text>
+</svg>

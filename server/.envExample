@@ -1,0 +1,54 @@
+# Copy to .env and fill in values
+# MongoDB connection string
+MONGO_URL=mongodb://localhost:27017/caseloom
+
+# API server port
+PORT=4000
+# Frontend origin for cookie-based auth (CORS credentials)
+CLIENT_ORIGIN=http://localhost:5173
+
+# Optional: n8n webhook URL for decision point events
+N8N_WEBHOOK_URL=http://localhost:5678/webhook/caseloom-decision-point
+
+# Optional: Twilio SMS credentials for appointment confirmations
+TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+TWILIO_AUTH_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+TWILIO_FROM=+15551234567
+
+# JWT secret used for auth token signing
+JWT_SECRET=replace-with-a-long-random-string
+# Short-lived access token ttl (e.g. 10m, 15m, 1h)
+ACCESS_TOKEN_TTL=15m
+# Refresh session lifetime in days
+REFRESH_TOKEN_DAYS=30
+# Refresh cookie name
+REFRESH_COOKIE_NAME=caseloom_refresh_token
+
+# OpenAI API (AI Assist)
+OPENAI_API_KEY=replace-with-your-openai-key
+OPENAI_MODEL=gpt-4o-mini
+OPENAI_TEMPERATURE=0.2
+
+# Security: auth rate limit + brute-force lock
+# Auth requests per window (defaults: 20 in 15 minutes)
+AUTH_RATE_LIMIT_WINDOW_MS=900000
+AUTH_RATE_LIMIT_MAX=20
+# Failed logins before lock and lock duration (defaults: 5 attempts, 15 minutes)
+AUTH_MAX_FAILED_ATTEMPTS=5
+AUTH_LOCK_WINDOW_MS=900000
+
+# Security: write endpoint rate limit (defaults: 120 in 1 minute)
+WRITE_RATE_LIMIT_WINDOW_MS=60000
+WRITE_RATE_LIMIT_MAX=120
+
+# Attachment security
+# Comma-separated MIME whitelist used by upload validation.
+ATTACH_ALLOWED_MIME_TYPES=application/pdf,image/jpeg,image/png,image/webp,text/plain
+# Max upload size (MB) enforced by multer.
+ATTACH_MAX_FILE_SIZE_MB=10
+# Malware scan toggle (set false only for local testing).
+MALWARE_SCAN_ENABLED=true
+# HMAC secret used for signed download URLs (fallback: JWT_SECRET).
+ATTACHMENT_SIGNING_SECRET=replace-with-another-long-random-string
+# Signed URL lifetime in seconds.
+ATTACH_SIGNED_URL_TTL_SECONDS=300

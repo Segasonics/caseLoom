@@ -1,0 +1,47 @@
+{
+  "name": "caseloom-decision-point",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "caseloom-decision-point",
+        "responseMode": "onReceived",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "id": "Webhook",
+      "name": "DecisionPoint Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "operation": "email",
+        "toEmail": "doctor@clinic.local",
+        "subject": "CaseLoom decision: {{$json.decisionType}}",
+        "text": "A new decision point was created in CaseLoom.\n\nCase ID: {{$json.caseId}}\nDecision Type: {{$json.decisionType}}\nRationale: {{$json.rationale}}\nNext Step: {{$json.nextStep}}\nFollow Up By: {{$json.followUpBy}}\nCreated At: {{$json.createdAt}}\n\nOpen CaseLoom to review and take action.",
+        "options": {}
+      },
+      "id": "Email",
+      "name": "Notify Doctor",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [520, 300]
+    }
+  ],
+  "connections": {
+    "DecisionPoint Webhook": {
+      "main": [
+        [
+          {
+            "node": "Notify Doctor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {}
+}

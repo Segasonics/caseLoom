@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="48" viewBox="0 0 64 48">
+  <rect width="64" height="16" fill="#ce1126"/>
+  <rect y="16" width="64" height="16" fill="#fff"/>
+  <rect y="32" width="64" height="16" fill="#000"/>
+  <text x="32" y="30" font-family="Arial, sans-serif" font-size="16" fill="#111" text-anchor="middle" font-weight="700">EG</text>
+</svg>

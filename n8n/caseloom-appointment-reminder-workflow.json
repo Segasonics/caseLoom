@@ -1,0 +1,124 @@
+{
+  "name": "caseloom-appointment-reminder",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "caseloom-appointment-reminder",
+        "responseMode": "onReceived",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "id": "Webhook",
+      "name": "Appointment Reminder Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "smsBody",
+              "value": "Appointment reminder: {{$json.title}} on {{$json.scheduledFor}}. If you need to reschedule, please contact the clinic."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "Set",
+      "name": "Compose SMS",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [520, 300]
+    },
+    {
+      "parameters": {
+        "waitUntil": "={{$json.reminderAt}}"
+      },
+      "id": "Wait",
+      "name": "Wait Until Reminder",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [760, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{'https://api.twilio.com/2010-04-01/Accounts/' + $env.TWILIO_ACCOUNT_SID + '/Messages.json'}}",
+        "authentication": "none",
+        "sendBody": true,
+        "jsonParameters": false,
+        "options": {
+          "bodyContentType": "form-urlencoded"
+        },
+        "headerParametersUi": {
+          "parameter": [
+            {
+              "name": "Authorization",
+              "value": "={{'Basic ' + $base64($env.TWILIO_ACCOUNT_SID + ':' + $env.TWILIO_AUTH_TOKEN)}}"
+            }
+          ]
+        },
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "To",
+              "value": "={{$json.contactPhone}}"
+            },
+            {
+              "name": "From",
+              "value": "={{$env.TWILIO_FROM}}"
+            },
+            {
+              "name": "Body",
+              "value": "={{$json.smsBody}}"
+            }
+          ]
+        }
+      },
+      "id": "Twilio",
+      "name": "Send SMS",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1020, 300]
+    }
+  ],
+  "connections": {
+    "Appointment Reminder Webhook": {
+      "main": [
+        [
+          {
+            "node": "Compose SMS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compose SMS": {
+      "main": [
+        [
+          {
+            "node": "Wait Until Reminder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Until Reminder": {
+      "main": [
+        [
+          {
+            "node": "Send SMS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {}
+}

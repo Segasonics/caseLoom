@@ -1,0 +1,22 @@
+export const countryCodes = [
+  { code: "+1", label: "United States", flag: new URL("../assets/flags/us.svg", import.meta.url).href },
+  { code: "+1", label: "Canada", flag: new URL("../assets/flags/ca.svg", import.meta.url).href },
+  { code: "+44", label: "United Kingdom", flag: new URL("../assets/flags/gb.svg", import.meta.url).href },
+  { code: "+61", label: "Australia", flag: new URL("../assets/flags/au.svg", import.meta.url).href },
+  { code: "+91", label: "India", flag: new URL("../assets/flags/in.svg", import.meta.url).href },
+  { code: "+49", label: "Germany", flag: new URL("../assets/flags/de.svg", import.meta.url).href },
+  { code: "+33", label: "France", flag: new URL("../assets/flags/fr.svg", import.meta.url).href },
+  { code: "+39", label: "Italy", flag: new URL("../assets/flags/it.svg", import.meta.url).href },
+  { code: "+34", label: "Spain", flag: new URL("../assets/flags/es.svg", import.meta.url).href },
+  { code: "+31", label: "Netherlands", flag: new URL("../assets/flags/nl.svg", import.meta.url).href },
+  { code: "+971", label: "United Arab Emirates", flag: new URL("../assets/flags/ae.svg", import.meta.url).href },
+  { code: "+966", label: "Saudi Arabia", flag: new URL("../assets/flags/sa.svg", import.meta.url).href },
+  { code: "+20", label: "Egypt", flag: new URL("../assets/flags/eg.svg", import.meta.url).href },
+  { code: "+961", label: "Lebanon", flag: new URL("../assets/flags/lb.svg", import.meta.url).href },
+  { code: "+92", label: "Pakistan", flag: new URL("../assets/flags/pk.svg", import.meta.url).href },
+  { code: "+880", label: "Bangladesh", flag: new URL("../assets/flags/bd.svg", import.meta.url).href },
+  { code: "+60", label: "Malaysia", flag: new URL("../assets/flags/my.svg", import.meta.url).href },
+  { code: "+65", label: "Singapore", flag: new URL("../assets/flags/sg.svg", import.meta.url).href },
+  { code: "+81", label: "Japan", flag: new URL("../assets/flags/jp.svg", import.meta.url).href },
+  { code: "+82", label: "South Korea", flag: new URL("../assets/flags/kr.svg", import.meta.url).href }
+];

@@ -22,7 +22,8 @@ export default function Login() {
       }
       localStorage.setItem("caseloom_user", JSON.stringify(res.user));
       localStorage.setItem("caseloom_token", res.token);
-      navigate("/dashboard");
+      window.dispatchEvent(new Event("caseloom-auth-changed"));
+      navigate("/dashboard", { replace: true });
     } catch (err) {
       setError("Login failed. Please try again.");
     } finally {

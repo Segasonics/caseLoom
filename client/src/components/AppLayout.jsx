@@ -11,6 +11,7 @@ export default function AppLayout() {
     await logout();
     localStorage.removeItem("caseloom_user");
     localStorage.removeItem("caseloom_token");
+    window.dispatchEvent(new Event("caseloom-auth-changed"));
     navigate("/login");
   }
 

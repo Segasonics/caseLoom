@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 
-const API_BASE = "http://localhost:4000";
+const API_BASE = "https://caseloom.onrender.com";
+// "http://localhost:4000";
 let hasHandledSessionExpiry = false;
 let refreshInFlight = null;
 
@@ -100,7 +101,7 @@ async function apiFetch(url, options = {}, meta = {}) {
 
 export async function fetchCases() {
   const res = await apiFetch(`${API_BASE}/api/cases`, {
-    headers: { ...authHeaders() }
+    headers: { ...authHeaders() },
   });
   return res.json();
 }
@@ -109,14 +110,14 @@ export async function createCase(payload) {
   const res = await apiFetch(`${API_BASE}/api/cases`, {
     method: "POST",
     headers: { "Content-Type": "application/json", ...authHeaders() },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   });
   return res.json();
 }
 
 export async function fetchCaseDetail(id) {
   const res = await apiFetch(`${API_BASE}/api/cases/${id}`, {
-    headers: { ...authHeaders() }
+    headers: { ...authHeaders() },
   });
   return res.json();
 }
@@ -125,17 +126,20 @@ export async function createTimelineEvent(caseId, payload) {
   const res = await apiFetch(`${API_BASE}/api/cases/${caseId}/timeline`, {
     method: "POST",
     headers: { "Content-Type": "application/json", ...authHeaders() },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   });
   return res.json();
 }
 
 export async function createDecisionPoint(caseId, payload) {
-  const res = await apiFetch(`${API_BASE}/api/cases/${caseId}/decision-points`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", ...authHeaders() },
-    body: JSON.stringify(payload)
-  });
+  const res = await apiFetch(
+    `${API_BASE}/api/cases/${caseId}/decision-points`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json", ...authHeaders() },
+      body: JSON.stringify(payload),
+    },
+  );
   return res.json();
 }
 
@@ -145,7 +149,7 @@ export async function uploadCaseAttachment(caseId, file) {
   const res = await apiFetch(`${API_BASE}/api/cases/${caseId}/attachments`, {
     method: "POST",
     headers: { ...authHeaders() },
-    body: formData
+    body: formData,
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) return { error: data.error || "Failed to upload attachment" };
@@ -153,10 +157,13 @@ export async function uploadCaseAttachment(caseId, file) {
 }
 
 export async function deleteCaseAttachment(caseId, attachmentId) {
-  const res = await apiFetch(`${API_BASE}/api/cases/${caseId}/attachments/${attachmentId}`, {
-    method: "DELETE",
-    headers: { ...authHeaders() }
-  });
+  const res = await apiFetch(
+    `${API_BASE}/api/cases/${caseId}/attachments/${attachmentId}`,
+    {
+      method: "DELETE",
+      headers: { ...authHeaders() },
+    },
+  );
   const data = await res.json().catch(() => ({}));
   if (!res.ok) return { error: data.error || "Failed to delete attachment" };
   return data;
@@ -167,10 +174,11 @@ export async function fetchCaseAttachmentUrl(caseId, attachmentId) {
     `${API_BASE}/api/cases/${caseId}/attachments/${attachmentId}/url`,
     {
       headers: { ...authHeaders() },
-    }
+    },
   );
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) return { error: data.error || "Failed to get secure attachment URL" };
+  if (!res.ok)
+    return { error: data.error || "Failed to get secure attachment URL" };
   return data;
 }
 
@@ -178,27 +186,33 @@ export async function createTask(caseId, payload) {
   const res = await apiFetch(`${API_BASE}/api/cases/${caseId}/tasks`, {
     method: "POST",
     headers: { "Content-Type": "application/json", ...authHeaders() },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   });
   return res.json();
 }
 
 export async function updateTaskStatus(caseId, taskId, status) {
-  const res = await apiFetch(`${API_BASE}/api/cases/${caseId}/tasks/${taskId}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json", ...authHeaders() },
-    body: JSON.stringify({ status })
-  });
+  const res = await apiFetch(
+    `${API_BASE}/api/cases/${caseId}/tasks/${taskId}`,
+    {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json", ...authHeaders() },
+      body: JSON.stringify({ status }),
+    },
+  );
   const data = await res.json().catch(() => ({}));
   if (!res.ok) return { error: data.error || "Failed to update task" };
   return data;
 }
 
 export async function deleteTask(caseId, taskId) {
-  const res = await apiFetch(`${API_BASE}/api/cases/${caseId}/tasks/${taskId}`, {
-    method: "DELETE",
-    headers: { ...authHeaders() }
-  });
+  const res = await apiFetch(
+    `${API_BASE}/api/cases/${caseId}/tasks/${taskId}`,
+    {
+      method: "DELETE",
+      headers: { ...authHeaders() },
+    },
+  );
   const data = await res.json().catch(() => ({}));
   if (!res.ok) return { error: data.error || "Failed to delete task" };
   return data;
@@ -208,7 +222,7 @@ export async function updateCaseStatus(caseId, status) {
   const res = await apiFetch(`${API_BASE}/api/cases/${caseId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json", ...authHeaders() },
-    body: JSON.stringify({ status })
+    body: JSON.stringify({ status }),
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) return { error: data.error || "Failed to update case" };
@@ -219,7 +233,7 @@ export async function updateCaseTags(caseId, tags) {
   const res = await apiFetch(`${API_BASE}/api/cases/${caseId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json", ...authHeaders() },
-    body: JSON.stringify({ tags })
+    body: JSON.stringify({ tags }),
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) return { error: data.error || "Failed to update tags" };
@@ -229,7 +243,7 @@ export async function updateCaseTags(caseId, tags) {
 export async function deleteCase(caseId) {
   const res = await apiFetch(`${API_BASE}/api/cases/${caseId}`, {
     method: "DELETE",
-    headers: { ...authHeaders() }
+    headers: { ...authHeaders() },
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) return { error: data.error || "Failed to delete case" };
@@ -238,7 +252,7 @@ export async function deleteCase(caseId) {
 
 export async function fetchCaseShares(caseId) {
   const res = await apiFetch(`${API_BASE}/api/cases/${caseId}/share`, {
-    headers: { ...authHeaders() }
+    headers: { ...authHeaders() },
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) return { error: data.error || "Failed to load share access" };
@@ -249,7 +263,7 @@ export async function shareCaseWithEmail(caseId, email) {
   const res = await apiFetch(`${API_BASE}/api/cases/${caseId}/share`, {
     method: "POST",
     headers: { "Content-Type": "application/json", ...authHeaders() },
-    body: JSON.stringify({ email })
+    body: JSON.stringify({ email }),
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) return { error: data.error || "Failed to share case" };
@@ -257,10 +271,13 @@ export async function shareCaseWithEmail(caseId, email) {
 }
 
 export async function unshareCaseUser(caseId, userId) {
-  const res = await apiFetch(`${API_BASE}/api/cases/${caseId}/share/${userId}`, {
-    method: "DELETE",
-    headers: { ...authHeaders() }
-  });
+  const res = await apiFetch(
+    `${API_BASE}/api/cases/${caseId}/share/${userId}`,
+    {
+      method: "DELETE",
+      headers: { ...authHeaders() },
+    },
+  );
   const data = await res.json().catch(() => ({}));
   if (!res.ok) return { error: data.error || "Failed to remove access" };
   return data;
@@ -268,7 +285,7 @@ export async function unshareCaseUser(caseId, userId) {
 
 export async function fetchAppointments() {
   const res = await apiFetch(`${API_BASE}/api/appointments`, {
-    headers: { ...authHeaders() }
+    headers: { ...authHeaders() },
   });
   return res.json();
 }
@@ -277,7 +294,7 @@ export async function createAppointment(payload) {
   const res = await apiFetch(`${API_BASE}/api/appointments`, {
     method: "POST",
     headers: { "Content-Type": "application/json", ...authHeaders() },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   });
   return res.json();
 }
@@ -286,7 +303,7 @@ export async function updateAppointment(appointmentId, payload) {
   const res = await apiFetch(`${API_BASE}/api/appointments/${appointmentId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json", ...authHeaders() },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) return { error: data.error || "Failed to update appointment" };
@@ -296,7 +313,7 @@ export async function updateAppointment(appointmentId, payload) {
 export async function deleteAppointment(appointmentId) {
   const res = await apiFetch(`${API_BASE}/api/appointments/${appointmentId}`, {
     method: "DELETE",
-    headers: { ...authHeaders() }
+    headers: { ...authHeaders() },
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) return { error: data.error || "Failed to delete appointment" };
@@ -307,7 +324,7 @@ export async function signup(payload) {
   const res = await apiFetch(`${API_BASE}/api/auth/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   });
   const data = await res.json().catch(() => ({}));
   if (res.ok) hasHandledSessionExpiry = false;
@@ -318,7 +335,7 @@ export async function login(payload) {
   const res = await apiFetch(`${API_BASE}/api/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   });
   const data = await res.json().catch(() => ({}));
   if (res.ok) hasHandledSessionExpiry = false;
@@ -332,7 +349,7 @@ export async function logout() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     },
-    { skipAuthRefresh: true }
+    { skipAuthRefresh: true },
   );
   const data = await res.json().catch(() => ({}));
   hasHandledSessionExpiry = false;
@@ -344,7 +361,7 @@ export async function generateCaseSummary(caseId) {
   const res = await apiFetch(`${API_BASE}/api/ai/case-summary`, {
     method: "POST",
     headers: { "Content-Type": "application/json", ...authHeaders() },
-    body: JSON.stringify({ caseId })
+    body: JSON.stringify({ caseId }),
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) return { error: data.error || "Failed to generate summary" };
@@ -355,7 +372,7 @@ export async function generateDecisionDraft(caseId, decisionType) {
   const res = await apiFetch(`${API_BASE}/api/ai/decision-draft`, {
     method: "POST",
     headers: { "Content-Type": "application/json", ...authHeaders() },
-    body: JSON.stringify({ caseId, decisionType })
+    body: JSON.stringify({ caseId, decisionType }),
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) return { error: data.error || "Failed to draft decision" };
@@ -370,9 +387,9 @@ export async function fetchAuditLogs(params = {}) {
   if (params.limit) query.set("limit", String(params.limit));
 
   const res = await apiFetch(`${API_BASE}/api/audit-logs?${query.toString()}`, {
-    headers: { ...authHeaders() }
+    headers: { ...authHeaders() },
   });
-  const data = await res.json().catch(() => ([]));
+  const data = await res.json().catch(() => []);
   if (!res.ok) return { error: data.error || "Failed to load audit logs" };
   return data;
 }
